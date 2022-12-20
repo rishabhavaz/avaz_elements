@@ -126,7 +126,7 @@ class BorderPainter extends CustomPainter {
           path.lineTo(size!.width + _strokeWidth / 2, 0);
           break;
         case 50:
-          path.lineTo(size!.width - _strokeWidth / 2, size!.height);
+          path.lineTo(size!.width - _strokeWidth / 2, size.height);
           break;
         case 75:
           path.lineTo(0, size!.height + _strokeWidth / 2);
