@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:avaz_elements/constants/session_helper.dart';
+import 'package:avaz_elements/ui/screens/main_screen.dart';
 import 'package:avaz_elements/ui/screens/scanning_home.dart';
 import 'package:avaz_elements/ui/screens/touch_home.dart';
 import 'package:flutter/gestures.dart';
@@ -37,32 +39,36 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  Map<int, Offset> touchPositions = <int, Offset>{};
-
   @override
   Widget build(BuildContext context) {
     return Listener(
       onPointerDown: (PointerDownEvent event) {
-        touchPositions[event.pointer] = event.position;
-        BlocProvider.of<HitTestCubit>(context)
-            .updatePosition(touchPositions, touchType: TouchType.tapDown);
+        pointers[event.pointer] = event.position;
+        BlocProvider.of<HitTestCubit>(context).updatePosition(pointers,
+            touchType: TouchType.tapDown,
+            removeId: -1,
+            removePosition: event.position);
       },
       onPointerMove: (event) {
-        touchPositions[event.pointer] = event.position;
-        log(' touchPositions: ${touchPositions}');
-        BlocProvider.of<HitTestCubit>(context)
-            .updatePosition(touchPositions, touchType: TouchType.moving);
+        pointers[event.pointer] = event.position;
+        BlocProvider.of<HitTestCubit>(context).updatePosition(pointers,
+            touchType: TouchType.moving,
+            removeId: -1,
+            removePosition: event.position);
       },
       onPointerUp: (event) {
-        touchPositions.remove(event.pointer);
-        BlocProvider.of<HitTestCubit>(context)
-            .updatePosition(touchPositions, touchType: TouchType.tapUp);
+        BlocProvider.of<HitTestCubit>(context).updatePosition(pointers,
+            touchType: TouchType.tapUp,
+            removeId: event.pointer,
+            removePosition: event.position);
       },
       onPointerCancel: (event) {
-        touchPositions.remove(event.pointer);
+        pointers.remove(event.pointer);
         BlocProvider.of<HitTestCubit>(context).updatePosition(
             {-1: const Offset(-1, -1)},
-            touchType: TouchType.cancelled);
+            touchType: TouchType.cancelled,
+            removeId: event.pointer,
+            removePosition: event.position);
       },
       child: Scaffold(
         body: Center(
@@ -71,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 50,
               ),
-              TouchHome(),
+              MainScreen(),
               Expanded(
                 child: Container(),
               )

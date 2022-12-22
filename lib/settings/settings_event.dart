@@ -8,10 +8,11 @@ abstract class SettingsEvent extends Equatable {
 }
 
 class UpdateSettings extends SettingsEvent {
-  final SettingsModel settingsModel;
+  final SettingKeys key;
+  final dynamic value;
 
-  const UpdateSettings({required this.settingsModel});
+  const UpdateSettings({required this.key, required this.value});
 
   @override
-  List<Object> get props => [settingsModel];
+  List<Object> get props => [key, value];
 }

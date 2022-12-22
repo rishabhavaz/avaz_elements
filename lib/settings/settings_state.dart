@@ -6,4 +6,15 @@ class SettingsState extends Equatable {
 
   @override
   List<Object> get props => [settingsModel];
+
+  SettingsState copyWith({required SettingsModel settingsModel}) {
+    return SettingsState(
+        settingsModel: settingsModel.copyWith(
+            enableScanning: settingsModel.enableScanning,
+            loaderEnabled: settingsModel.loaderEnabled,
+            showBorderFeedbankOnHover: settingsModel.showBorderFeedbankOnHover,
+            showFeedbackOnHover: settingsModel.showBorderFeedbankOnHover,
+            touchReleaseType: settingsModel.touchReleaseType,
+            zoomOutOnHover: settingsModel.zoomOutOnHover));
+  }
 }

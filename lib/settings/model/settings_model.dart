@@ -16,8 +16,6 @@ class SettingsModel {
   final bool zoomOutOnHover;
   final TouchReleaseType touchReleaseType;
   final bool enableScanning;
-  
-  
 
   SettingsModel(
       {this.loaderEnabled = false,

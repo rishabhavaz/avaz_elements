@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:avaz_elements/constants/session_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,13 +33,19 @@ class _AvazButtonState extends State<AvazButton> {
     Rect rect = renderBox.paintBounds;
     topLeft = renderBox.localToGlobal(rect.topLeft);
     bottomRight = renderBox.localToGlobal(rect.bottomRight);
-    log('LEFT TOP: $topLeft RIGHT BOTTOM $topLeft');
+  }
+
+  bool _isRemovePositionInsideCurrentWidget(Offset removePosition) {
+    if (removePosition.dx > topLeft.dx &&
+        removePosition.dy > topLeft.dy &&
+        removePosition.dx < bottomRight.dx &&
+        removePosition.dy < bottomRight.dy) {
+      return true;
+    }
+    return false;
   }
 
   bool _isHitInsideWidget({required Map<int, Offset> globalPositions}) {
-    if (topLeft.dx < 0) {
-      return false;
-    }
     for (var globalPosition in globalPositions.values) {
       if (globalPosition.dx > topLeft.dx &&
           globalPosition.dy > topLeft.dy &&
@@ -64,19 +71,16 @@ class _AvazButtonState extends State<AvazButton> {
     return BlocConsumer<HitTestCubit, HitTestState>(
       listener: (context, state) {
         var isHit = _isHitInsideWidget(globalPositions: state.touchPositions);
-        // log('topLeft: $topLeft, bottomRight: $bottomRight, positions: ${state.touchPositions.values}');
         if (isHit && state.touchType == TouchType.tapUp) {
-          BlocProvider.of<ButtonActionCubit>(context).onTapped(widget.label);
-          // any function
-        }
-        if (state.touchType == TouchType.tapUp) {
-          BlocProvider.of<HitTestCubit>(context).updatePosition(
-              {-1: const Offset(-1, -1)},
-              touchType: TouchType.cancelled);
+          if (_isRemovePositionInsideCurrentWidget(state.removePosition!) &&
+              pointers.length <= 1) {
+            BlocProvider.of<ButtonActionCubit>(context).onTapped(widget.label);
+            pointers.clear();
+          }
+          pointers.remove(state.removeId);
         }
       },
       builder: (context, state) {
-        log('Positions from bloc: ${state.touchPositions}');
         var isHit = _isHitInsideWidget(globalPositions: state.touchPositions);
         return Container(
           height: widget.height ?? height * .2,

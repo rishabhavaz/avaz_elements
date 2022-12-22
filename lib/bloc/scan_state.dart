@@ -10,10 +10,10 @@ abstract class ScanState extends Equatable {
 class ScanInitial extends ScanState {}
 
 class ScanningState extends ScanState {
-  final String currentScanKey;
+  final String currentScanningKey;
 
-  const ScanningState({required this.currentScanKey});
+  const ScanningState({required this.currentScanningKey});
 
   @override
-  List<Object> get props => [currentScanKey];
+  List<Object> get props => [currentScanningKey];
 }
