@@ -11,12 +11,14 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Expanded(
       flex: 4,
       child: Row(
         children: [
           Expanded(
-            flex: 4,
+            flex: 3,
             child: Row(
               children: [
                 Expanded(
@@ -33,7 +35,7 @@ class MainScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               AvazButton(
-                                width: 400,
+                                width: width * .4,
                                 height: 100,
                                 label: '',
                                 child: BlocBuilder<ButtonActionCubit,
@@ -47,8 +49,8 @@ class MainScreen extends StatelessWidget {
                                 ),
                               ),
                               AvazButton(
-                                width: 100,
-                                height: 100,
+                                width: height * .12,
+                                height: height * .12,
                                 label: '#',
                                 child: Text(
                                   '#',
@@ -62,6 +64,7 @@ class MainScreen extends StatelessWidget {
                       Expanded(
                           flex: 3,
                           child: Container(
+                            width: width * 0.4,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.red, width: 3),
@@ -103,7 +106,7 @@ class MainScreen extends StatelessWidget {
               ],
             ),
           ),
-          const Expanded(child: SettingsWidget())
+          // const Expanded(child: SettingsWidget())
         ],
       ),
     );

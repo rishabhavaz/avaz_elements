@@ -78,9 +78,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 50,
               ),
               MainScreen(),
-              Expanded(
-                child: Container(),
-              )
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
