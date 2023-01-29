@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +17,7 @@ class MainScreen extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return Expanded(
       flex: 4,
+      key: const Key('hello'),
       child: Row(
         children: [
           Expanded(
@@ -26,38 +29,45 @@ class MainScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 3, color: Colors.red),
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              AvazButton(
-                                width: width * .4,
-                                height: 100,
-                                label: '',
-                                child: BlocBuilder<ButtonActionCubit,
-                                    ButtonActionState>(
-                                  builder: (context, state) {
-                                    return Text(
-                                      state.text,
-                                      style: TextStyle(fontSize: 30),
-                                    );
-                                  },
+                        child: InkWell(
+                          onTap: () {
+                            context.visitChildElements((element) {
+                              log('ELEMENT: ${element.widget.key} ');
+                            });
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                border: Border.all(width: 3, color: Colors.red),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                AvazButton(
+                                  width: width * .4,
+                                  height: 100,
+                                  label: '',
+                                  child: BlocBuilder<ButtonActionCubit,
+                                      ButtonActionState>(
+                                    builder: (context, state) {
+                                      return Text(
+                                        state.text,
+                                        style: TextStyle(fontSize: 30),
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                              AvazButton(
-                                width: height * .12,
-                                height: height * .12,
-                                label: '#',
-                                child: Text(
-                                  '#',
-                                  style: TextStyle(fontSize: 30),
+                                AvazButton(
+                                  width: height * .12,
+                                  height: height * .12,
+                                  label: '#',
+                                  child: Text(
+                                    '#',
+                                    style: TextStyle(fontSize: 30),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

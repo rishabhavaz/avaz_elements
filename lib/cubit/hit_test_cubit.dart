@@ -21,7 +21,7 @@ class HitTestCubit extends Cubit<HitTestState> {
       {required TouchType touchType,
       required int removeId,
       required Offset removePosition}) {
-    log('Positions from UPDATE: $touchPositions $touchType ');
+    log('Count:: ${touchPositions.length} UPDATE: $touchPositions $touchType ');
     emit(HitTestState(
         touchPositions: touchPositions,
         touchType: touchType,
