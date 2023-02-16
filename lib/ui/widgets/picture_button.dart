@@ -12,7 +12,7 @@ class PictureButton extends StatelessWidget {
       label: label,
       height: height * .15,
       width: height * .15,
-      child: Text(label, style: const TextStyle(fontSize: 30)),
+      child: Text(label, style: const TextStyle(fontSize: 16)),
     );
   }
 }

@@ -25,14 +25,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
-  //long tap,
-  //double tap,
-  //1. Dialog box appears,
-  //2. Swipe or scrolling,
-  //3. Long taps, double taps.
-  //4.
-
   @override
   void initState() {
     super.initState();
@@ -43,31 +35,41 @@ class _HomeScreenState extends State<HomeScreen> {
     return Listener(
       onPointerDown: (PointerDownEvent event) {
         pointers[event.pointer] = event.position;
+        log('Touch: ${event.position}');
         BlocProvider.of<HitTestCubit>(context).updatePosition(pointers,
             touchType: TouchType.tapDown,
             removeId: -1,
-            removePosition: event.position);
+            removePosition: event.position,
+            pointer: event.pointer);
       },
       onPointerMove: (event) {
         pointers[event.pointer] = event.position;
-        BlocProvider.of<HitTestCubit>(context).updatePosition(pointers,
-            touchType: TouchType.moving,
-            removeId: -1,
-            removePosition: event.position);
+        BlocProvider.of<HitTestCubit>(context).updatePosition(
+          pointers,
+          touchType: TouchType.moving,
+          removeId: -1,
+          removePosition: event.position,
+          pointer: event.pointer,
+        );
       },
       onPointerUp: (event) {
-        BlocProvider.of<HitTestCubit>(context).updatePosition(pointers,
-            touchType: TouchType.tapUp,
-            removeId: event.pointer,
-            removePosition: event.position);
+        BlocProvider.of<HitTestCubit>(context).updatePosition(
+          pointers,
+          touchType: TouchType.tapUp,
+          removeId: event.pointer,
+          removePosition: event.position,
+          pointer: event.pointer,
+        );
       },
       onPointerCancel: (event) {
         pointers.remove(event.pointer);
         BlocProvider.of<HitTestCubit>(context).updatePosition(
-            {-1: const Offset(-1, -1)},
-            touchType: TouchType.cancelled,
-            removeId: event.pointer,
-            removePosition: event.position);
+          {-1: const Offset(-1, -1)},
+          touchType: TouchType.cancelled,
+          removeId: event.pointer,
+          removePosition: event.position,
+          pointer: event.pointer,
+        );
       },
       child: Scaffold(
         body: Center(

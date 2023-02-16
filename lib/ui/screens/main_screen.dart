@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:avaz_elements/ui/screens/gridview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,18 +53,18 @@ class MainScreen extends StatelessWidget {
                                     builder: (context, state) {
                                       return Text(
                                         state.text,
-                                        style: TextStyle(fontSize: 30),
+                                        style: const TextStyle(fontSize: 20),
                                       );
                                     },
                                   ),
                                 ),
                                 AvazButton(
-                                  width: height * .12,
-                                  height: height * .12,
+                                  width: height * .14,
+                                  height: height * .14,
                                   label: '#',
-                                  child: Text(
+                                  child: const Text(
                                     '#',
-                                    style: TextStyle(fontSize: 30),
+                                    style: TextStyle(fontSize: 18),
                                   ),
                                 ),
                               ],
@@ -71,37 +72,18 @@ class MainScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Expanded(
-                          flex: 3,
-                          child: Container(
-                            width: width * 0.4,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.red, width: 3),
-                                borderRadius: BorderRadius.circular(8)),
-                            margin: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.width * .1),
-                            child: Wrap(children: const [
-                              PictureButton(label: 'A'),
-                              PictureButton(label: 'B'),
-                              PictureButton(label: 'C'),
-                              PictureButton(label: 'D'),
-                              PictureButton(label: 'E'),
-                              PictureButton(label: 'F'),
-                              PictureButton(label: 'G'),
-                              PictureButton(label: 'H'),
-                              PictureButton(label: 'I'),
-                            ]),
-                          ))
+                      const Expanded(
+                        flex: 3,
+                        child: GridWidget(),
+                      )
                     ],
                   ),
                 ),
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.all(8),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
-                        border: Border.all(width: 3, color: Colors.red),
+                        border: Border.all(width: 3, color: Colors.transparent),
                         borderRadius: BorderRadius.circular(8)),
                     child: Column(
                       children: const [

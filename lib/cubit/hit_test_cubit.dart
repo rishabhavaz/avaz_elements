@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -11,22 +12,25 @@ part 'hit_test_state.dart';
 class HitTestCubit extends Cubit<HitTestState> {
   HitTestCubit()
       : super(HitTestState(
-            touchPositions: const {-1: Offset(-1, -1)},
-            touchType: TouchType.cancelled,
-            removeId: -1,
-            removePosition: const Offset(-1, -1),
-            time: DateTime.now()));
+          touchPositions: const {-1: Offset(-1, -1)},
+          touchType: TouchType.cancelled,
+          removeId: -1,
+          removePosition: const Offset(-1, -1),
+          time: DateTime.now(),
+          pointer: -1,
+        ));
 
   updatePosition(Map<int, Offset> touchPositions,
       {required TouchType touchType,
       required int removeId,
-      required Offset removePosition}) {
-    log('Count:: ${touchPositions.length} UPDATE: $touchPositions $touchType ');
-    emit(HitTestState(
+      required Offset removePosition,
+      required int? pointer}) {
+    emit(state.copyWith(
         touchPositions: touchPositions,
         touchType: touchType,
         removeId: removeId,
         time: DateTime.now(),
-        removePosition: removePosition));
+        removePosition: removePosition,
+        pointer: pointer));
   }
 }

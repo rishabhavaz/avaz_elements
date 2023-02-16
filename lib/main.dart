@@ -12,9 +12,15 @@ import 'cubit/hit_test_cubit.dart';
 import 'settings/settings_bloc.dart';
 import 'ui/screens/home_screen.dart';
 import 'ui/screens/multi_gesture_detector.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeRight,
+  ]).then((_) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -24,12 +30,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SettingsBloc>(create: (context) => SettingsBloc()),
-        BlocProvider<ButtonActionCubit>(
-            create: (context) => ButtonActionCubit()),
         BlocProvider<HitTestCubit>(
           create: (context) => HitTestCubit(),
         ),
+        BlocProvider<ButtonActionCubit>(
+            create: (context) => ButtonActionCubit()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
