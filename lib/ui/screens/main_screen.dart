@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:avaz_elements/ui/screens/gridview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,18 +52,18 @@ class MainScreen extends StatelessWidget {
                                     builder: (context, state) {
                                       return Text(
                                         state.text,
-                                        style: const TextStyle(fontSize: 20),
+                                        style: TextStyle(fontSize: 30),
                                       );
                                     },
                                   ),
                                 ),
                                 AvazButton(
-                                  width: height * .14,
-                                  height: height * .14,
+                                  width: height * .12,
+                                  height: height * .12,
                                   label: '#',
-                                  child: const Text(
+                                  child: Text(
                                     '#',
-                                    style: TextStyle(fontSize: 18),
+                                    style: TextStyle(fontSize: 30),
                                   ),
                                 ),
                               ],
@@ -72,18 +71,37 @@ class MainScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Expanded(
-                        flex: 3,
-                        child: GridWidget(),
-                      )
+                      Expanded(
+                          flex: 3,
+                          child: Container(
+                            width: width * 0.4,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.red, width: 3),
+                                borderRadius: BorderRadius.circular(8)),
+                            margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * .1),
+                            child: Wrap(children: const [
+                              PictureButton(label: 'A'),
+                              PictureButton(label: 'B'),
+                              PictureButton(label: 'C'),
+                              PictureButton(label: 'D'),
+                              PictureButton(label: 'E'),
+                              PictureButton(label: 'F'),
+                              PictureButton(label: 'G'),
+                              PictureButton(label: 'H'),
+                              PictureButton(label: 'I'),
+                            ]),
+                          ))
                     ],
                   ),
                 ),
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    margin: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                        border: Border.all(width: 3, color: Colors.transparent),
+                        border: Border.all(width: 3, color: Colors.red),
                         borderRadius: BorderRadius.circular(8)),
                     child: Column(
                       children: const [

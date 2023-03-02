@@ -43,16 +43,19 @@ class _HomeScreenState extends State<HomeScreen> {
             pointer: event.pointer);
       },
       onPointerMove: (event) {
-        pointers[event.pointer] = event.position;
-        BlocProvider.of<HitTestCubit>(context).updatePosition(
-          pointers,
-          touchType: TouchType.moving,
-          removeId: -1,
-          removePosition: event.position,
-          pointer: event.pointer,
-        );
+        if (pointers.containsKey(event.pointer)) {
+          pointers[event.pointer] = event.position;
+          BlocProvider.of<HitTestCubit>(context).updatePosition(
+            pointers,
+            touchType: TouchType.moving,
+            removeId: -1,
+            removePosition: event.position,
+            pointer: event.pointer,
+          );
+        }
       },
       onPointerUp: (event) {
+        log('POINTERS: $pointers');
         BlocProvider.of<HitTestCubit>(context).updatePosition(
           pointers,
           touchType: TouchType.tapUp,

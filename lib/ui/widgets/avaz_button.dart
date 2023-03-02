@@ -86,27 +86,27 @@ class _AvazButtonWidgetState extends State<AvazButtonWidget> {
     return false;
   }
 
-  _onScroll() {
-    // Get the global offset of the widget with respect to the screen.
-    final RenderBox renderBox = context.findRenderObject() as RenderBox;
-    final Offset offset = renderBox.localToGlobal(Offset.zero);
+  // _onScroll() {
+  //   // Get the global offset of the widget with respect to the screen.
+  //   final RenderBox renderBox = context.findRenderObject() as RenderBox;
+  //   final Offset offset = renderBox.localToGlobal(Offset.zero);
 
-    // Get the screen height and width.
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
+  //   // Get the screen height and width.
+  //   final double screenHeight = MediaQuery.of(context).size.height;
+  //   final double screenWidth = MediaQuery.of(context).size.width;
 
-    // Calculate the offsets of the widget with respect to the screen height and width.
-    final double offsetY = offset.dy ?? 0.0;
-    final double offsetX = offset.dx ?? 0.0;
-    final double offsetFromBottom =
-        screenHeight - offsetY - renderBox.size.height ?? 0.0;
-    final double offsetFromRight =
-        screenWidth - offsetX - renderBox.size.width ?? 0.0;
+  //   // Calculate the offsets of the widget with respect to the screen height and width.
+  //   final double offsetY = offset.dy ?? 0.0;
+  //   final double offsetX = offset.dx ?? 0.0;
+  //   final double offsetFromBottom =
+  //       screenHeight - offsetY - renderBox.size.height ?? 0.0;
+  //   final double offsetFromRight =
+  //       screenWidth - offsetX - renderBox.size.width ?? 0.0;
 
-    // Use the offsets as needed.
-    topLeft = Offset(offsetX, offsetY);
-    bottomRight = Offset(offsetFromRight, offsetFromBottom);
-  }
+  //   // Use the offsets as needed.
+  //   topLeft = Offset(offsetX, offsetY);
+  //   bottomRight = Offset(offsetFromRight, offsetFromBottom);
+  // }
 
   @override
   void initState() {
@@ -127,8 +127,6 @@ class _AvazButtonWidgetState extends State<AvazButtonWidget> {
 
     return BlocConsumer<HitTestCubit, HitTestState>(
       listener: (context, state) {
-        // log("Position ${widget.label}: $topLeft $bottomRight [H/W: $height $width]");
-        _onScroll();
         var isHit = _isHitInsideWidget(globalPositions: state.touchPositions);
         if (isHit && state.touchType == TouchType.tapUp) {
           if (_isRemovePositionInsideCurrentWidget(state.removePosition!)) {
